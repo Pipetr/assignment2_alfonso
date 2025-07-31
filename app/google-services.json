@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "246222656359",
+    "project_id": "fir-authstore-f267b",
+    "storage_bucket": "fir-authstore-f267b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246222656359:android:b98a059b8a549a403015c2",
+        "android_client_info": {
+          "package_name": "ca.georgiancollege.assignment2_alfonso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdNXpQGCMrpz68qWs4-7uAGGxwtDJkdnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

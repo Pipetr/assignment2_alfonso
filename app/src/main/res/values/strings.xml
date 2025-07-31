@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">assignment2_alfonso</string>
+    <string name="login_title">Login</string>
+    <string name="email_hint">email@example.com</string>
+    <string name="password_hint">password</string>
+    <string name="register_link">Register here</string>
 </resources>
