@@ -1,6 +1,8 @@
 package ca.georgiancollege.assignment2_alfonso;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,5 +21,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.txtRegisterLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentObj = new Intent(getApplicationContext(), Register.class);
+                startActivity(intentObj);
+            }
+        });
     }
 }

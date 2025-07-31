@@ -4,4 +4,6 @@
     <string name="email_hint">email@example.com</string>
     <string name="password_hint">password</string>
     <string name="register_link">Register here</string>
+    <string name="register_title">Register</string>
+    <string name="Sing_Up">Sing up</string>
 </resources>
