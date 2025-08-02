@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -24,14 +24,18 @@ import ca.georgiancollege.assignment2_alfonso.databinding.ActivityLoginBinding;
 public class Login extends AppCompatActivity {
 
     ActivityLoginBinding binding;
+    FirebaseFirestore db;
     FirebaseAuth mAuth;
+    UserModel user;
+    private CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("Users");
         mAuth = FirebaseAuth.getInstance();
 
         binding.txtRegisterLink.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +69,28 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d("tag", "signInWithEmail:success");
-                    Intent intentObj = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intentObj);
-                    finish(); // Close the Login activity
+                    String userid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                    // Retrieve all the user details stored in Users collection
+                    collectionReference.document(userid).get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()){
+                                    UserModel user = documentSnapshot.toObject(UserModel.class);
+                                    if (user != null) {
+                                        Log.d("tag", "User data retrieved: " + user.getUsername());
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        intent.putExtra("UserModel", user);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("tag", "Error getting user data", e);
+                                Toast.makeText(Login.this, "Error retrieving user data", Toast.LENGTH_SHORT).show();
+                            });
                 }else{
                     Log.d("tag", "singInWithEmail:failure ", task.getException());
+                    Toast.makeText(Login.this, "Login fail", Toast.LENGTH_SHORT).show();
                 }
 
             }
