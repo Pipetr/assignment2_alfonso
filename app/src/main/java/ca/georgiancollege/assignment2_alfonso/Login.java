@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -77,11 +76,21 @@ public class Login extends AppCompatActivity {
                                     UserModel user = documentSnapshot.toObject(UserModel.class);
                                     if (user != null) {
                                         Log.d("tag", "User data retrieved: " + user.getUsername());
+                                        // Make sure all user fields are properly set
+                                        if (user.getUid() == null) {
+                                            user.setUid(userid);
+                                        }
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.putExtra("UserModel", user);
                                         startActivity(intent);
                                         finish();
+                                    } else {
+                                        Log.e("tag", "User object is null");
+                                        Toast.makeText(Login.this, "Error: User data not found", Toast.LENGTH_SHORT).show();
                                     }
+                                } else {
+                                    Log.e("tag", "User document does not exist");
+                                    Toast.makeText(Login.this, "Error: User not found in database", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(e -> {

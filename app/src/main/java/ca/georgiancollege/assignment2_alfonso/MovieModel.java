@@ -2,12 +2,16 @@ package ca.georgiancollege.assignment2_alfonso;
 
 import android.net.Uri;
 
-public class MovieModel {
+import com.google.firebase.firestore.Exclude;
+
+import java.io.Serializable;
+
+public class MovieModel implements Serializable {
     private String Title;
 
     private String Year;
 
-    private Uri Poster;
+    private String Poster; // Changed from Uri to String for Firestore compatibility
 
     private String userUid;
 
@@ -20,9 +24,15 @@ public class MovieModel {
     public MovieModel(String title, String year, Uri poster, String userUid, String uid) {
         Title = title;
         Year = year;
-        Poster = poster;
+        Poster = poster != null ? poster.toString() : null;
         this.userUid = userUid;
         this.uid = uid;
+    }
+
+    public MovieModel(String title, String year, Uri poster) {
+        Title = title;
+        Year = year;
+        Poster = poster != null ? poster.toString() : null;
     }
 
     public String getTitle() {
@@ -41,12 +51,22 @@ public class MovieModel {
         Year = year;
     }
 
-    public Uri getPoster() {
+    public String getPoster() {
         return Poster;
     }
 
-    public void setPoster(Uri poster) {
+    public void setPoster(String poster) {
         Poster = poster;
+    }
+    
+    @Exclude
+    public Uri getPosterUri() {
+        return Poster != null ? Uri.parse(Poster) : null;
+    }
+
+    @Exclude
+    public void setPosterUri(Uri poster) {
+        Poster = poster != null ? poster.toString() : null;
     }
 
     public String getUserUid() {

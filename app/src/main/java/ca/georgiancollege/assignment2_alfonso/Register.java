@@ -53,6 +53,15 @@ public class Register extends AppCompatActivity {
                 registerUser(username, email, password);
             }
         });
+        
+        binding.btnBackToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void registerUser(String username, String email, String password) {

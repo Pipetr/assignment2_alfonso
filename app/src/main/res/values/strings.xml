@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">assignment2_alfonso</string>
+    <string name="BtnSearchTxt">Search</string>
+    <string name="iptSearchHolder">Search a movie</string>
     <string name="login_title">Login</string>
     <string name="email_hint">email@example.com</string>
     <string name="password_hint">password</string>
@@ -7,4 +9,24 @@
     <string name="register_title">Register</string>
     <string name="Sing_Up">Sing up</string>
     <string name="username_hint">username</string>
+    <string name="lbMovieTitle">Movie Title:</string>
+    <string name="tvMovieTitle">Movie</string>
+    <string name="lbDirector">Director Name:</string>
+    <string name="tvDirector">Director</string>
+    <string name="lbRating">Movie Rating:</string>
+    <string name="tvRating">Rating</string>
+    <string name="lbRelease">Release Year:</string>
+    <string name="tvYear">Year</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="txtViewID">Movie id</string>
+    <string name="movieID">movie id</string>
+    <string name="back">\uf060</string>
+    <string name="lbDuration">Runtime: 120 min</string>
+    <string name="lbPlot">Movie plot goes here…</string>
+    <string name="add_movie">\u002b</string>
+    <string name="edit_movie">Edit Movie</string>
+    <string name="poster_url">Poster URL</string>
+    <string name="save_movie">Save Movie</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
