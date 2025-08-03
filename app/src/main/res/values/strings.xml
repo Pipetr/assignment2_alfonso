@@ -28,5 +28,9 @@
     <string name="poster_url">Poster URL</string>
     <string name="save_movie">Save Movie</string>
     <string name="cancel">Cancel</string>
+    <string name="logout">\uf2f5</string>
+    <string name="no_movies_in_favorites">No movies in your favorites yet!</string>
+    <string name="movie_icon">movie icon</string>
+    <string name="click_the_plus">Click the + button to add movies to your favorites</string>
 
 </resources>

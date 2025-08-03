@@ -56,64 +56,59 @@ public class MainActivity extends AppCompatActivity {
 
         
         Log.d("MainActivity", "Setting up observer");
-        
-        try {
-            // Observe the movie data and update RecyclerView
-            viewModel.getMovieData().observe(this, new Observer<List<MovieModel>>() {
-                @Override
-                public void onChanged(List<MovieModel> movieModels) {
-                    try {
-                        if (movieModels != null && !movieModels.isEmpty()) {
-                            // Show RecyclerView, hide empty state
-                            binding.recyclerView.setVisibility(View.VISIBLE);
-                            binding.emptyStateLayout.setVisibility(View.GONE);
 
-                            if (myAdapter == null) {
-                                myAdapter = new MovieAdapter(movieModels, user, false); // false = favorites mode
-                                myAdapter.setViewModel(viewModel); // Pass the viewModel to adapter
-                                binding.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                binding.recyclerView.setAdapter(myAdapter);
-                            } else {
-                                myAdapter.updateData(movieModels);
-                            }
+        // Observe the movie data and update RecyclerView
+        viewModel.getMovieData().observe(this, new Observer<List<MovieModel>>() {
+            @Override
+            public void onChanged(List<MovieModel> movieModels) {
+                try {
+                    if (movieModels != null && !movieModels.isEmpty()) {
+                        // Show RecyclerView, hide empty state
+                        binding.recyclerView.setVisibility(View.VISIBLE);
+                        binding.emptyStateLayout.setVisibility(View.GONE);
+
+                        if (myAdapter == null) {
+                            myAdapter = new MovieAdapter(movieModels, user, false); // false = favorites mode
+                            myAdapter.setViewModel(viewModel); // Pass the viewModel to adapter
+                            binding.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            binding.recyclerView.setAdapter(myAdapter);
                         } else {
-                            // Show empty state, hide RecyclerView
-                            binding.recyclerView.setVisibility(View.GONE);
-                            binding.emptyStateLayout.setVisibility(View.VISIBLE);
+                            myAdapter.updateData(movieModels);
                         }
-                    } catch (Exception e) {
-                        Log.e("MainActivity", "Error in onChanged: ", e);
+                    } else {
+                        // Show empty state, hide RecyclerView
+                        binding.recyclerView.setVisibility(View.GONE);
+                        binding.emptyStateLayout.setVisibility(View.VISIBLE);
                     }
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error in onChanged: ", e);
                 }
-            });
-        } catch (Exception e) {
-            Log.e("MainActivity", "Error setting up observer: ", e);
-            return;
-        }
+            }
+        });
 
-        try {
-            // Retrieve user's favorite movies after a small delay to ensure everything is initialized
-            binding.getRoot().post(() -> {
-                if (viewModel != null && user != null) {
-                    Log.d("MainActivity", "Calling retrieveMovies");
-                    viewModel.retrieveMovies(user);
-                }
-            });
-        } catch (Exception e) {
-            Log.e("MainActivity", "Error setting up movie retrieval: ", e);
-        }
+        // Retrieve user's favorite movies after a small delay to ensure everything is initialized
+        binding.getRoot().post(() -> {
+            if (viewModel != null && user != null) {
+                Log.d("MainActivity", "Calling retrieveMovies");
+                viewModel.retrieveMovies(user);
+            }
+        });
 
-        try {
-            binding.btnAddMovie.setOnClickListener(v -> {
-                // Show the search movie activity
-                Intent intent = new Intent(getApplicationContext(), SearchMovie.class);
-                intent.putExtra("UserModel", user);
-                startActivity(intent);
-            });
-            Log.d("MainActivity", "Add movie button setup completed");
-        } catch (Exception e) {
-            Log.e("MainActivity", "Error setting up add movie button: ", e);
-        }
+        binding.btnAddMovie.setOnClickListener(v -> {
+            // Show the search movie activity
+            Intent intent = new Intent(getApplicationContext(), SearchMovie.class);
+            intent.putExtra("UserModel", user);
+            startActivity(intent);
+        });
+
+        binding.btnLogout.setOnClickListener(v ->{
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            // destroy all values in the intent
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     @Override

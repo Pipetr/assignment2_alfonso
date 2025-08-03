@@ -59,6 +59,14 @@ public class SearchMovie extends AppCompatActivity {
             }
         });
 
+        binding.btnBack.setOnClickListener(v -> {
+            // Go back to the previous screen
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("UserModel", user); // Pass the user data back
+            startActivity(intent);
+            finish(); // Close the current activity
+        });
+
         viewModel.getMovieData().observe(this, new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {

@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -15,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -24,57 +28,72 @@
             android:layout_weight="1"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never" />
-            
+
         <LinearLayout
             android:id="@+id/emptyStateLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="32dp"
             android:visibility="gone">
-            
+
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/movie_24"
                 android:layout_marginBottom="16dp"
-                android:alpha="0.5" />
-            
+                android:alpha="0.5"
+                android:contentDescription="@string/movie_icon"
+                android:src="@drawable/movie_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No movies in your favorites yet!"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="8dp"
-                android:textColor="@android:color/darker_gray" />
-                
+                android:text="@string/no_movies_in_favorites"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Click the + button to add movies to your favorites"
-                android:textSize="14sp"
+                android:text="@string/click_the_plus"
+                android:textAlignment="center"
                 android:textColor="@android:color/darker_gray"
-                android:textAlignment="center" />
-                
+                android:textSize="14sp" />
+
         </LinearLayout>
     </LinearLayout>
-<!--    Float over the recycler view -->
+
+    <!--    Float over the recycler view -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/fa_solid_900"
+        android:padding="0dp"
+        android:text="@string/logout"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <Button
         android:id="@+id/btnAddMovie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/fa_solid_900"
+        android:padding="0dp"
         android:text="@string/add_movie"
-        android:textSize="30sp"
-        android:layout_gravity="end"
         android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
